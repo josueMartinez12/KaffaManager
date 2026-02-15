@@ -16,7 +16,7 @@ router.post('/',
 
 router.get('/', 
     protect, 
-    checkRole('ADMIN_ROLE', 'VENDEDOR_ROLE'), 
+   // checkRole('ADMIN_ROLE', 'VENDEDOR_ROLE'), //
     invoiceController.getInvoices
 );
 

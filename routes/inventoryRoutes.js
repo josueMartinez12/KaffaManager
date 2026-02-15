@@ -8,7 +8,7 @@ const checkRole = require('../middleware/checkRoleMiddleware');
 router.get('/', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.getCurrentStock);
 
 // 2. Ajustar stock (POST /api/inventory/move o /api/inventory/adjust)
-router.post('/adjust', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.adjustStock);
+router.post('/move', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.adjustStock);
 
 // 3. Alertas (GET /api/inventory/alerts)
 router.get('/alerts', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.getLowStockAlerts);
