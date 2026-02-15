@@ -2,6 +2,7 @@ const Invoice = require('../models/Invoice');
 const Sale = require('../models/Sale');
 const Product = require('../models/Product');
 
+
 // 1. PROCESAR VENTA (POST)
 exports.processSale = async (req, res) => {
     const { items, cliente, total, metodoPago } = req.body;

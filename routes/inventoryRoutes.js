@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const inventoryController = require('../controllers/inventoryController');
 const { protect } = require('../middleware/authMiddleware'); 
 const checkRole = require('../middleware/checkRoleMiddleware'); 
 
-// 2. Rutas actualizadas con el nombre de rol correcto
-router.get('/', [protect, checkRole('Admin')], (req, res) => {
-    res.json({ msg: "Inventario cargado correctamente" });
-});
+// 1. Obtener stock actual (GET /api/inventory)
+router.get('/', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.getCurrentStock);
 
-// Ejemplo para registrar un movimiento de inventario
-router.post('/move', [protect, checkRole('Admin')], async (req, res) => {
-    // Aquí iría tu lógica de guardar en el modelo Inventory
-    res.json({ msg: "Movimiento registrado" });
-});
+// 2. Ajustar stock (POST /api/inventory/move o /api/inventory/adjust)
+router.post('/adjust', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.adjustStock);
+
+// 3. Alertas (GET /api/inventory/alerts)
+router.get('/alerts', protect, checkRole('Admin', 'ADMIN_ROLE'), inventoryController.getLowStockAlerts);
 
 module.exports = router;
