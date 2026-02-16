@@ -41,10 +41,17 @@ exports.updateBatch = async (req, res) => {
             req.body,
             { new: true, runValidators: true }
         );
+        
         if (!actualizado) return res.status(404).json({ message: "Lote no encontrado" });
+        
         res.json(actualizado);
     } catch (error) {
-        res.status(400).json({ message: "Error al actualizar lote" });
+        // CAMBIO AQUÍ: Ahora verás el error real en la respuesta
+        console.error("Error detallado:", error); 
+        res.status(400).json({ 
+            message: "Error al actualizar lote", 
+            error: error.message // <--- Esto te dirá si falta un campo obligatorio
+        });
     }
 };
 

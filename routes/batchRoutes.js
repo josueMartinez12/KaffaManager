@@ -27,7 +27,7 @@ router.get('/:id',
 
 router.put('/:id', 
     protect, 
-    checkRole('Admin'), 
+    checkRole('Admin', 'ADMIN_ROLE'), 
     batchController.updateBatch
 );
 
